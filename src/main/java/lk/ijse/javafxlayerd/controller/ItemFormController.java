@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.javafxlayerd.business.custom.BoFactory;
+import lk.ijse.javafxlayerd.business.custom.BoType;
+import lk.ijse.javafxlayerd.business.custom.ItemBo;
 import lk.ijse.javafxlayerd.business.custom.impl.ItemBoImpl;
 import lk.ijse.javafxlayerd.dto.ItemDto;
 
@@ -39,6 +42,7 @@ public class ItemFormController {
     private TableColumn<?, ?> colQtyOnHand;
     @FXML
     private TableView<?> itemTable;
+    private ItemBo itemBo = BoFactory.getBo(BoType.ITEM);
 
     public void initialize() throws SQLException {
         System.out.println("Item form just loaded");
@@ -53,8 +57,16 @@ public class ItemFormController {
         Integer qtyOnHand = Integer.parseInt(txtQty.getText());
 
         var itemDto = new ItemDto(itemCode,descrition,unitPrice,qtyOnHand);
-        ItemBoImpl itemBoImpl = new ItemBoImpl();
-        boolean isSaved = itemBoImpl.saveItem(itemDto);
+        //ItemBoImpl itemBoImpl = new ItemBoImpl();
+
+        try {
+            boolean isSaved = itemBo.saveItem(itemDto);
+            if(isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Item Saved!").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
 
     }
 

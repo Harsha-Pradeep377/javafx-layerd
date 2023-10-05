@@ -1,5 +1,14 @@
 package lk.ijse.javafxlayerd.business.custom;
 
-public class BoFactory {
+import lk.ijse.javafxlayerd.business.custom.impl.ItemBoImpl;
 
+public class BoFactory {
+    public static <T> T getBo(BoType type){
+        switch (type){
+            case ITEM:
+                return (T) new ItemBoImpl();
+            default:
+                return null;
+        }
+    }
 }
