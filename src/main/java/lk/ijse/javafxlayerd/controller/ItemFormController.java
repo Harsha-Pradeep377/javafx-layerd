@@ -1,26 +1,14 @@
 package lk.ijse.javafxlayerd.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import lk.ijse.javafxlayerd.business.ItemBo;
+import lk.ijse.javafxlayerd.business.custom.impl.ItemBoImpl;
 import lk.ijse.javafxlayerd.dto.ItemDto;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemFormController {
     public AnchorPane itemNode;
@@ -65,7 +53,8 @@ public class ItemFormController {
         Integer qtyOnHand = Integer.parseInt(txtQty.getText());
 
         var itemDto = new ItemDto(itemCode,descrition,unitPrice,qtyOnHand);
-        boolean isSaved = ItemBo.saveItem(itemDto);
+        ItemBoImpl itemBoImpl = new ItemBoImpl();
+        boolean isSaved = itemBoImpl.saveItem(itemDto);
 
     }
 
